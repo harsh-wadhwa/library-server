@@ -2,6 +2,10 @@ const express = require('express');
 const app = express();
 const PORT = 5000;
 const booksData = require('./data.json');
+const cors = require('cors');
+
+//Enabling CORS for all routes for now
+app.use(cors());
 
 // API endpoint to retrieve books
 app.get('/books', (req, res) => {
