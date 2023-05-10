@@ -1,23 +1,15 @@
 {
-  "version": 2,
-  "builds": [
-    {
-      "src": "app.js",
-      "use": "@vercel/node"
-    }
-  ],
-  "routes": [
-    {
-      "src": "/(.*)",
-      "dest": "/app.js",
-      "headers": [
-        {
-          "source": "/api/(.*)",
-          "headers": {
-            "Access-Control-Allow-Origin": "*"
-          }
+    "version": 2,
+    "builds": [
+       { "src": "app.js", "use": "@vercel/node" }
+    ],
+    "routes": [
+       { "src": "/(.*)",
+        "dest": "/app.js",
+        "headers": {
+          "Access-Control-Allow-Origin": "*"
         }
-      ]
-    }
-  ]
-}
+       }
+
+    ]
+ }
