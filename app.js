@@ -10,16 +10,41 @@ app.use(cors());
 // API endpoint to retrieve books
 app.get('/books', (req, res) => {
 
-    const { page, pageSize } = req.query;
+    const { page, pageSize, title, author, minPages, publishYear } = req.query;
 
     const pageNumber = parseInt(page);
     const limit = parseInt(pageSize);
 
     const startIndex = (pageNumber - 1) * limit;
 
-    const booksSubset = booksData.books.slice(startIndex, startIndex + limit);
+    let filteredBooks = booksData.books.slice(startIndex, startIndex + limit);
 
-    res.json(booksSubset);
+    if (title) {
+        filteredBooks = filteredBooks.filter((book) =>
+            book.title.toLowerCase().includes(title.toLowerCase())
+        );
+    }
+
+    if (author) {
+        filteredBooks = filteredBooks.filter((book) =>
+            book.author.toLowerCase().includes(author.toLowerCase())
+        );
+    }
+
+    if (minPages) {
+        const minPageCount = parseInt(minPages);
+        filteredBooks = filteredBooks.filter((book) =>
+            book.pages >= minPageCount
+        );
+    }
+
+    if (publishYear) {
+        filteredBooks = filteredBooks.filter((book) =>
+            book.year === parseInt(publishYear)
+        );
+    }
+
+    res.json(filteredBooks);
 
 });
 
